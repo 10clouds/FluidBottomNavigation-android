@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Fluid Bottom Navigation Example</string>
+    <string name="news">News</string>
+    <string name="inbox">Inbox</string>
+    <string name="calendar">Calendar</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
+
+</resources>
