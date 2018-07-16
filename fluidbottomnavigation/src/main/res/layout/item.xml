@@ -8,14 +8,15 @@
         android:layout_height="@dimen/fluidBottomNavigationHeightWithOpacity"
         android:background="@android:color/transparent">
 
-    <ImageView
-            android:id="@+id/topAnimatedImageView"
-            android:layout_width="0dp"
+    <com.tenclouds.fluidbottomnavigation.view.TopContainerView
+            android:id="@+id/topContainer"
+            android:layout_width="@dimen/fluidBottomNavigationTopContainerWidth"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:scaleY="0.85"
-            android:scaleX="0.85"
-            android:translationY="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/fluidBottomNavigationTopContainerMarginLeftRight"
+            android:layout_marginEnd="@dimen/fluidBottomNavigationTopContainerMarginLeftRight"
             />
 
     <android.support.constraint.ConstraintLayout
@@ -26,40 +27,47 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/fluidBottomNavigationBackgroundMarginTop"
             />
 
-    <ImageView
+    <com.tenclouds.fluidbottomnavigation.view.RectangleView
+            android:id="@+id/rectangle"
+            android:layout_width="@dimen/fluidBottomNavigationCircleSize"
+            android:layout_height="@dimen/fluidBottomNavigationCircleSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/rectangle"
+            android:layout_marginTop="@dimen/fluidBottomNavigationRectangleMarginTop"
+            />
+
+    <com.tenclouds.fluidbottomnavigation.view.CircleView
             android:id="@+id/circle"
-            android:scaleY="0"
-            android:scaleX="0"
             android:layout_width="@dimen/fluidBottomNavigationCircleSize"
             android:layout_height="@dimen/fluidBottomNavigationCircleSize"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/circle"
-            android:layout_marginTop="41dp"
+            android:layout_marginTop="@dimen/fluidBottomNavigationCircleMarginTop"
             />
 
-    <ImageView
+    <com.tenclouds.fluidbottomnavigation.view.IconView
             android:id="@+id/icon"
             android:layout_width="@dimen/fluidBottomNavigationIconSize"
             android:layout_height="@dimen/fluidBottomNavigationIconSize"
-            android:scaleX="0.9"
-            android:scaleY="0.9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="@dimen/fluidBottomNavigationIconMarginTop"
             tools:src="@android:drawable/btn_star"
             />
 
-    <TextView
+    <com.tenclouds.fluidbottomnavigation.view.TitleView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/fluidBottomNavigationTitleMarginTop"
             android:lines="1"
             android:textColor="@color/textColor"
             app:layout_constraintTop_toBottomOf="@id/icon"

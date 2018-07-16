@@ -1,14 +1,15 @@
 package com.tenclouds.fluidbottomnavigation
 
+import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.VisibleForTesting
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
+import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -18,6 +19,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import com.tenclouds.fluidbottomnavigation.extension.*
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
 import kotlinx.android.synthetic.main.item.view.*
 
@@ -42,17 +44,15 @@ class FluidBottomNavigation : FrameLayout {
     var items: List<FluidBottomNavigationItem> = listOf()
         set(value) {
             if (value.size < 3)
-                throw TooMuchItemsException(resources)
+                IllegalStateException(resources.getString(R.string.exception_too_much_items))
             if (value.size > 5)
-                throw TooLittleItemsException(resources)
+                IllegalStateException(resources.getString(R.string.exception_too_little_items))
 
             field = value
             drawLayout()
         }
 
-
     var onTabSelectedListener: OnTabSelectedListener? = null
-
 
     var accentColor: Int? = null
     var backColor: Int? = null
@@ -63,8 +63,8 @@ class FluidBottomNavigation : FrameLayout {
 
     var selectedTabItem: FluidBottomNavigationItem? = null
 
-    internal var bottomBarHeight: Int? = null
-    internal var bottomBarWidth: Int? = null
+    private var bottomBarHeight: Int? = null
+    private var bottomBarWidth: Int? = null
 
     @VisibleForTesting var isVisible = true
     private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
@@ -190,33 +190,84 @@ class FluidBottomNavigation : FrameLayout {
             }
 
             with(icon) {
+                selectColor = getColor(iconSelectedColor)
+                deselectColor = getColor(iconColor)
+
                 setImageDrawable(item.drawable)
                 if (selectedTabPosition == position)
                     animateSelectItemView(view)
                 else
-                    setTintColor(getColor(iconColor))
+                    setTintColor(deselectColor)
             }
 
             with(title) {
                 typeface = textFont
+                setTextColor(getColor(this@FluidBottomNavigation.textColor))
                 text = item.title
                 setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
                         resources.getDimension(R.dimen.fluidBottomNavigationTextSize))
             }
 
-            with(topAnimatedImageView) {
-                AnimatedVectorDrawableCompat
-                        .create(context, R.drawable.top)
-                        .let {
-                            it?.stop()
-                            setImageDrawable(it)
-                        }
-            }
+            circle.setTintColor(getColor(accentColor))
+            rectangle.setTintColor(getColor(accentColor))
 
             backgroundContainer.setOnClickListener { selectTab(position) }
         }
     }
+
+
+    private fun animateSelectItemView(itemView: View) {
+        with(itemView) {
+            AnimatorSet()
+                    .apply {
+                        playTogether(
+                                circle.selectAnimator,
+                                icon.selectAnimator,
+                                title.selectAnimator,
+                                rectangle.selectAnimator,
+                                topContainer.selectAnimator)
+                    }
+                    .start()
+        }
+    }
+
+    private fun animateDeselectItemView(itemView: View) {
+        with(itemView) {
+            AnimatorSet()
+                    .apply {
+                        playTogether(
+                                circle.deselectAnimator,
+                                icon.deselectAnimator,
+                                title.deselectAnimator,
+                                rectangle.deselectAnimator,
+                                topContainer.deselectAnimator)
+                    }
+                    .start()
+        }
+    }
+
+    private fun animateShow() =
+            AnimatorSet()
+                    .apply {
+                        play(translationYAnimator(
+                                bottomBarHeight?.toFloat() ?: 0f,
+                                0f,
+                                3 * KEY_FRAME_IN_MS,
+                                LinearOutSlowInInterpolator()))
+                    }
+                    .start()
+
+    private fun animateHide() =
+            AnimatorSet()
+                    .apply {
+                        play(translationYAnimator(
+                                0f,
+                                bottomBarHeight?.toFloat() ?: 0f,
+                                3 * KEY_FRAME_IN_MS,
+                                LinearOutSlowInInterpolator()))
+                    }
+                    .start()
 
     fun getTabsSize() = items.size
 
@@ -240,7 +291,6 @@ class FluidBottomNavigation : FrameLayout {
                 selectedTabPosition = getInt(
                         R.styleable.FluidBottomNavigation_defaultTabPosition,
                         DEFAULT_SELECTED_TAB_POSITION)
-
                 accentColor = getColor(
                         R.styleable.FluidBottomNavigation_accentColor,
                         ContextCompat.getColor(context, R.color.accentColor))
@@ -255,7 +305,7 @@ class FluidBottomNavigation : FrameLayout {
                         ContextCompat.getColor(context, R.color.iconSelectedColor))
                 iconSelectedColor = getColor(
                         R.styleable.FluidBottomNavigation_iconSelectedColor,
-                        ContextCompat.getColor(context, R.color.textColor))
+                        ContextCompat.getColor(context, R.color.iconSelectedColor))
                 textFont = ResourcesCompat.getFont(
                         context,
                         getResourceId(

@@ -1,0 +1,14 @@
+package com.tenclouds.fluidbottomnavigation.view
+
+import android.animation.Animator
+import android.content.Context
+import com.tenclouds.fluidbottomnavigation.R
+
+interface AnimatedView {
+
+    val selectAnimator: Animator
+    val deselectAnimator: Animator
+
+    fun getItemYTransitionYValue(context: Context) =
+            -(context.resources?.getDimension(R.dimen.fluidBottomNavigationItemTranslationY) ?: 0f)
+}

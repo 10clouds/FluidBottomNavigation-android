@@ -8,17 +8,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var state: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
-        fluidBottomNavigation.accentColor = R.color.colorPrimaryDark
-        fluidBottomNavigation.backColor = R.color.colorPrimaryDark
-        fluidBottomNavigation.textColor = R.color.colorPrimaryDark
-        fluidBottomNavigation.iconColor = R.color.colorPrimary
-        fluidBottomNavigation.iconSelectedColor = R.color.iconSelectedColor
+
+        fluidBottomNavigation.accentColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        fluidBottomNavigation.backColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        fluidBottomNavigation.textColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        fluidBottomNavigation.iconColor = ContextCompat.getColor(this, R.color.colorPrimary)
+        fluidBottomNavigation.iconSelectedColor = ContextCompat.getColor(this, R.color.iconSelectedColor)
 
         fluidBottomNavigation.items =
                 listOf(
@@ -38,5 +36,4 @@ class MainActivity : AppCompatActivity() {
                                 getString(R.string.profile),
                                 ContextCompat.getDrawable(this, R.drawable.ic_profile)))
     }
-
 }

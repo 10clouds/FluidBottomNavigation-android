@@ -3,17 +3,23 @@
     <dimen name="fluidBottomNavigationHeight">56dp</dimen>
     <dimen name="fluidBottomNavigationHeightWithOpacity">80dp</dimen>
 
-    <dimen name="fluidBottomNavigationIconSize">18dp</dimen>
-    <dimen name="fluidBottomNavigationCircleSize">32dp</dimen>
-    <dimen name="fluidBottomNavigationTextSize">12sp</dimen>
-
     <dimen name="fluidBottomNavigationPaddingLeft">8dp</dimen>
     <dimen name="fluidBottomNavigationPaddingRight">8dp</dimen>
     <dimen name="fluidBottomNavigationPaddingTop">16dp</dimen>
     <dimen name="fluidBottomNavigationPaddingBottom">16dp</dimen>
 
-    <dimen name="fluidBottomNavigationCircleTopMargin">6dp</dimen>
-    <dimen name="fluidBottomNavigationTitleTopMargin">8dp</dimen>
+    <dimen name="fluidBottomNavigationTopContainerMarginLeftRight">1dp</dimen>
+    <dimen name="fluidBottomNavigationTopContainerWidth">88dp</dimen>
 
+    <dimen name="fluidBottomNavigationCircleSize">36dp</dimen>
+    <dimen name="fluidBottomNavigationIconSize">18dp</dimen>
+
+    <dimen name="fluidBottomNavigationCircleMarginTop">37dp</dimen>
+    <dimen name="fluidBottomNavigationIconMarginTop">46dp</dimen>
+    <dimen name="fluidBottomNavigationBackgroundMarginTop">32dp</dimen>
+    <dimen name="fluidBottomNavigationRectangleMarginTop">28dp</dimen>
+    <dimen name="fluidBottomNavigationTitleMarginTop">14dp</dimen>
+
+    <dimen name="fluidBottomNavigationTextSize">12sp</dimen>
     <dimen name="fluidBottomNavigationItemTranslationY">22dp</dimen>
 </resources>

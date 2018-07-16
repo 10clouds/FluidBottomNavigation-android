@@ -1,0 +1,83 @@
+package com.tenclouds.fluidbottomnavigation.view
+
+import android.animation.AnimatorSet
+import android.content.Context
+import android.support.v4.content.ContextCompat
+import android.util.AttributeSet
+import android.widget.ImageView
+import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
+import com.tenclouds.fluidbottomnavigation.R
+import com.tenclouds.fluidbottomnavigation.extension.interpolators
+import com.tenclouds.fluidbottomnavigation.extension.scaleAnimator
+import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
+
+class TopContainerView @JvmOverloads constructor(context: Context,
+                                                 attrs: AttributeSet? = null,
+                                                 defStyleAttr: Int = 0)
+    : ImageView(context, attrs, defStyleAttr), AnimatedView {
+
+    init {
+        setImageDrawable(ContextCompat.getDrawable(context, R.drawable.top))
+        translationY = 100f
+    }
+
+    override val selectAnimator by lazy {
+        AnimatorSet()
+                .apply {
+                    playTogether(
+                            selectScaleAnimator,
+                            selectMoveAnimator)
+                }
+    }
+
+    override val deselectAnimator by lazy {
+        AnimatorSet()
+                .apply {
+                    playTogether(
+                            deselectScaleAnimator,
+                            deselectMoveAnimator)
+                }
+    }
+
+    private val selectScaleAnimator =
+            AnimatorSet()
+                    .apply {
+                        playSequentially(
+                                scaleAnimator(1.0f, 1.25f, 6 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleAnimator(1.25f, 0.85f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleAnimator(0.85f, 1.0f, 3 * KEY_FRAME_IN_MS, interpolators[1]))
+                        startDelay = 11 * KEY_FRAME_IN_MS
+                    }
+
+    private val selectMoveAnimator =
+            AnimatorSet()
+                    .apply {
+                        play(translationYAnimator(
+                                -getItemYTransitionYValue(context) * 3 / 2,
+                                -getItemYTransitionYValue(context) * 1 / 6,
+                                7 * KEY_FRAME_IN_MS,
+                                interpolators[0]))
+                        startDelay = 9 * KEY_FRAME_IN_MS
+                    }
+
+    private val deselectScaleAnimator =
+            AnimatorSet()
+                    .apply {
+                        playSequentially(
+                                scaleAnimator(1.0f, 0.8f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleAnimator(0.8f, 1.15f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleAnimator(1.15f, 0.7f, 1 * KEY_FRAME_IN_MS, interpolators[0]))
+                        startDelay = 4 * KEY_FRAME_IN_MS
+                    }
+
+    private val deselectMoveAnimator =
+            AnimatorSet()
+                    .apply {
+                        play(translationYAnimator(
+                                -getItemYTransitionYValue(context) * 1 / 6,
+                                -getItemYTransitionYValue(context) * 3 / 2,
+                                7 * KEY_FRAME_IN_MS,
+                                interpolators[0]))
+                        startDelay = 7 * KEY_FRAME_IN_MS
+                    }
+}
