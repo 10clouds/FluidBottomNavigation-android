@@ -3,11 +3,6 @@
     <dimen name="fluidBottomNavigationHeight">56dp</dimen>
     <dimen name="fluidBottomNavigationHeightWithOpacity">80dp</dimen>
 
-    <dimen name="fluidBottomNavigationPaddingLeft">8dp</dimen>
-    <dimen name="fluidBottomNavigationPaddingRight">8dp</dimen>
-    <dimen name="fluidBottomNavigationPaddingTop">16dp</dimen>
-    <dimen name="fluidBottomNavigationPaddingBottom">16dp</dimen>
-
     <dimen name="fluidBottomNavigationTopContainerMarginLeftRight">1dp</dimen>
     <dimen name="fluidBottomNavigationTopContainerWidth">88dp</dimen>
 

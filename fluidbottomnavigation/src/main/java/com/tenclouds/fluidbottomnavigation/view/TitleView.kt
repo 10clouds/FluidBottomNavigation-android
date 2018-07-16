@@ -3,8 +3,8 @@ package com.tenclouds.fluidbottomnavigation.view
 import android.animation.AnimatorSet
 import android.content.Context
 import android.support.v4.view.animation.LinearOutSlowInInterpolator
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
-import android.widget.TextView
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
 import com.tenclouds.fluidbottomnavigation.extension.alphaAnimator
 import com.tenclouds.fluidbottomnavigation.extension.interpolators
@@ -13,7 +13,7 @@ import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 class TitleView @JvmOverloads constructor(context: Context,
                                           attrs: AttributeSet? = null,
                                           defStyleAttr: Int = 0)
-    : TextView(context, attrs, defStyleAttr), AnimatedView {
+    : AppCompatTextView(context, attrs, defStyleAttr), AnimatedView {
 
     override val selectAnimator by lazy {
         AnimatorSet().apply {

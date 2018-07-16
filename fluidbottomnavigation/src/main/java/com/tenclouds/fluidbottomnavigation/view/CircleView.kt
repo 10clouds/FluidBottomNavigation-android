@@ -2,8 +2,8 @@ package com.tenclouds.fluidbottomnavigation.view
 
 import android.animation.AnimatorSet
 import android.content.Context
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.widget.ImageView
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
 import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.scaleAnimator
@@ -12,7 +12,7 @@ import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 class CircleView @JvmOverloads constructor(context: Context,
                                            attrs: AttributeSet? = null,
                                            defStyleAttr: Int = 0)
-    : ImageView(context, attrs, defStyleAttr), AnimatedView {
+    : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {
 
     init {
         scaleY = 0f

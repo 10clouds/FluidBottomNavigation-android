@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Fluid Bottom Navigation</string>
-
     <string name="exception_too_much_items">Items list should have minimum 3 items</string>
     <string name="exception_too_little_items">Items list should have maximum 5 items</string>
 </resources>
