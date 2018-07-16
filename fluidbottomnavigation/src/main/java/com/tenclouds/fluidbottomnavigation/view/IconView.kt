@@ -50,15 +50,6 @@ class IconView @JvmOverloads constructor(context: Context,
                                 scaleAnimator(0.84f, 0.9f, 4 * KEY_FRAME_IN_MS, interpolators[3]))
                     }
 
-    private val deselectScaleAnimator =
-            AnimatorSet()
-                    .apply {
-                        playSequentially(
-                                scaleAnimator(0.9f, 0.84f, 4 * KEY_FRAME_IN_MS, interpolators[3]),
-                                scaleAnimator(0.84f, 1.1f, 4 * KEY_FRAME_IN_MS, interpolators[0]),
-                                scaleAnimator(1.1f, 0.9f, 7 * KEY_FRAME_IN_MS, interpolators[0]))
-                    }
-
     private val selectMoveAnimator =
             AnimatorSet()
                     .apply {
@@ -86,6 +77,15 @@ class IconView @JvmOverloads constructor(context: Context,
                                 3 * KEY_FRAME_IN_MS))
                     }
 
+    private val deselectScaleAnimator =
+            AnimatorSet()
+                    .apply {
+                        playSequentially(
+                                scaleAnimator(0.9f, 0.84f, 4 * KEY_FRAME_IN_MS, interpolators[3]),
+                                scaleAnimator(0.84f, 1.1f, 4 * KEY_FRAME_IN_MS, interpolators[0]),
+                                scaleAnimator(1.1f, 0.9f, 7 * KEY_FRAME_IN_MS, interpolators[0]))
+                    }
+
     private val deselectMoveAnimator =
             AnimatorSet()
                     .apply {
@@ -100,7 +100,7 @@ class IconView @JvmOverloads constructor(context: Context,
                                         0f,
                                         7 * KEY_FRAME_IN_MS,
                                         interpolators[0]))
-                        startDelay = 3 * KEY_FRAME_IN_MS
+                        startDelay = 6 * KEY_FRAME_IN_MS
                     }
 
     private val deselectTintAnimator
@@ -111,6 +111,6 @@ class IconView @JvmOverloads constructor(context: Context,
                                 selectColor,
                                 deselectColor,
                                 3 * KEY_FRAME_IN_MS))
-                        startDelay = 23 * KEY_FRAME_IN_MS
+                        startDelay = 19 * KEY_FRAME_IN_MS
                     }
 }

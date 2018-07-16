@@ -68,14 +68,15 @@ class TitleView @JvmOverloads constructor(context: Context,
                                 translationYAnimator(
                                         getItemYTransitionYValue(context) * 11 / 10,
                                         0f,
-                                        7 * KEY_FRAME_IN_MS,
+                                        11 * KEY_FRAME_IN_MS,
                                         interpolators[0]))
+                        startDelay = 4 * KEY_FRAME_IN_MS
                     }
 
     private val deselectAlphaAnimator =
             AnimatorSet()
                     .apply {
                         play(alphaAnimator(1f, 0f, 8 * KEY_FRAME_IN_MS, LinearOutSlowInInterpolator()))
-                        startDelay = 1 * KEY_FRAME_IN_MS
+                        startDelay = 7 * KEY_FRAME_IN_MS
                     }
 }

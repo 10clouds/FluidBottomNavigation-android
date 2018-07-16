@@ -53,21 +53,20 @@ class TopContainerView @JvmOverloads constructor(context: Context,
             AnimatorSet()
                     .apply {
                         play(translationYAnimator(
-                                -getItemYTransitionYValue(context) * 3 / 2,
+                                100f,
                                 -getItemYTransitionYValue(context) * 1 / 6,
                                 7 * KEY_FRAME_IN_MS,
                                 interpolators[0]))
-                        startDelay = 9 * KEY_FRAME_IN_MS
+                        startDelay = 12 * KEY_FRAME_IN_MS
                     }
 
     private val deselectScaleAnimator =
             AnimatorSet()
                     .apply {
                         playSequentially(
-                                scaleAnimator(1.0f, 0.8f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
-                                scaleAnimator(0.8f, 1.15f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
-                                scaleAnimator(1.15f, 0.7f, 1 * KEY_FRAME_IN_MS, interpolators[0]))
-                        startDelay = 4 * KEY_FRAME_IN_MS
+                                scaleAnimator(1.0f, 0.85f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleAnimator(0.85f, 1.25f, 3 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleAnimator(1.25f, 1.0f, 7 * KEY_FRAME_IN_MS, interpolators[1]))
                     }
 
     private val deselectMoveAnimator =
@@ -75,9 +74,9 @@ class TopContainerView @JvmOverloads constructor(context: Context,
                     .apply {
                         play(translationYAnimator(
                                 -getItemYTransitionYValue(context) * 1 / 6,
-                                -getItemYTransitionYValue(context) * 3 / 2,
-                                7 * KEY_FRAME_IN_MS,
+                                100f,
+                                10 * KEY_FRAME_IN_MS,
                                 interpolators[0]))
-                        startDelay = 7 * KEY_FRAME_IN_MS
+                        startDelay = 8 * KEY_FRAME_IN_MS
                     }
 }

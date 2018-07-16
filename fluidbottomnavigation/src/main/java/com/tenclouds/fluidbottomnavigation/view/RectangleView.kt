@@ -59,8 +59,9 @@ class RectangleView @JvmOverloads constructor(context: Context,
             AnimatorSet()
                     .apply {
                         playSequentially(
-                                scaleYAnimator(0.0f, 0.8f, 6 * KEY_FRAME_IN_MS, interpolators[1]),
-                                scaleYAnimator(0.8f, 0.0f, 5 * KEY_FRAME_IN_MS, interpolators[1]))
+                                scaleYAnimator(0.0f, 0.8f, 5 * KEY_FRAME_IN_MS, interpolators[1]),
+                                scaleYAnimator(0.8f, 0.0f, 3 * KEY_FRAME_IN_MS, interpolators[1]))
+                        startDelay = 4 * KEY_FRAME_IN_MS
                     }
 
     private val deselectMoveAnimator =
@@ -72,5 +73,6 @@ class RectangleView @JvmOverloads constructor(context: Context,
                                         0f,
                                         2 * KEY_FRAME_IN_MS,
                                         interpolators[1]))
+                        startDelay = 4 * KEY_FRAME_IN_MS
                     }
 }
