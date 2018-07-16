@@ -1,12 +1,14 @@
 package com.tenclouds.fluidbottomnavigation
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.VisibleForTesting
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -51,16 +53,18 @@ class FluidBottomNavigation : FrameLayout {
 
     var onTabSelectedListener: OnTabSelectedListener? = null
 
-    var bottomBarHeight: Int? = null
 
-    var bottomBarWidth: Int? = null
     var accentColor: Int? = null
-
     var backColor: Int? = null
     var iconColor: Int? = null
     var iconSelectedColor: Int? = null
     var textColor: Int? = null
+    var textFont: Typeface? = null
+
     var selectedTabItem: FluidBottomNavigationItem? = null
+
+    internal var bottomBarHeight: Int? = null
+    internal var bottomBarWidth: Int? = null
 
     @VisibleForTesting var isVisible = true
     private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
@@ -194,9 +198,7 @@ class FluidBottomNavigation : FrameLayout {
             }
 
             with(title) {
-                //            if (titleTypeface != null) {
-//                title.typeface = titleTypeface
-//            } TODO
+                typeface = textFont
                 text = item.title
                 setTextSize(
                         TypedValue.COMPLEX_UNIT_PX,
@@ -227,6 +229,7 @@ class FluidBottomNavigation : FrameLayout {
         textColor = ContextCompat.getColor(context, R.color.textColor)
         iconColor = ContextCompat.getColor(context, R.color.iconColor)
         iconSelectedColor = ContextCompat.getColor(context, R.color.iconSelectedColor)
+        textFont = ResourcesCompat.getFont(context, R.font.rubik_regular)
 
         if (attrs != null) {
             with(context
@@ -253,6 +256,11 @@ class FluidBottomNavigation : FrameLayout {
                 iconSelectedColor = getColor(
                         R.styleable.FluidBottomNavigation_iconSelectedColor,
                         ContextCompat.getColor(context, R.color.textColor))
+                textFont = ResourcesCompat.getFont(
+                        context,
+                        getResourceId(
+                                R.styleable.FluidBottomNavigation_textFont,
+                                R.font.rubik_regular))
                 recycle()
             }
         }
