@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fluidBottomNavigationHeightWithOpacity"
+        android:background="@android:color/transparent">
+
+    <ImageView
+            android:id="@+id/topAnimatedImageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:translationY="100dp"
+            />
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/backgroundContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fluidBottomNavigationHeight"
+            android:background="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="32dp"
+            />
+
+    <ImageView
+            android:id="@+id/circle"
+            android:scaleY="0"
+            android:scaleX="0"
+            android:layout_width="@dimen/fluidBottomNavigationCircleSize"
+            android:layout_height="@dimen/fluidBottomNavigationCircleSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/circle"
+            android:layout_marginTop="41dp"
+            />
+
+    <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/fluidBottomNavigationIconSize"
+            android:layout_height="@dimen/fluidBottomNavigationIconSize"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="48dp"
+            tools:src="@android:drawable/btn_star"
+            />
+
+    <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:lines="1"
+            android:textColor="@color/textColor"
+            app:layout_constraintTop_toBottomOf="@id/icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/fluidBottomNavigationTextSize"
+            tools:text="Label One"/>
+
+</android.support.constraint.ConstraintLayout>

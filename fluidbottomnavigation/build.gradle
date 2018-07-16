@@ -5,16 +5,12 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
 
-
-
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -24,7 +20,6 @@ android {
         }
         debug {
             minifyEnabled false
-
         }
     }
 }
@@ -33,16 +28,16 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:support-vector-drawable:$support_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_version"
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1"
     testImplementation "org.robolectric:robolectric:3.8"
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

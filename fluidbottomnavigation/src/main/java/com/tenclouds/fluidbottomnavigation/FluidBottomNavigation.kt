@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.VisibleForTesting
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -16,7 +17,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
-import kotlinx.android.synthetic.main.fluid_bottom_navigation_item.view.*
+import kotlinx.android.synthetic.main.item.view.*
 
 class FluidBottomNavigation : FrameLayout {
 
@@ -47,22 +48,24 @@ class FluidBottomNavigation : FrameLayout {
             drawLayout()
         }
 
+
     var onTabSelectedListener: OnTabSelectedListener? = null
 
-    private val views: MutableList<View> = ArrayList()
-    private var backgroundView: View? = null
-    private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
-    var height: Int? = null
-    var bottomBarWidth: Int? = null
+    var bottomBarHeight: Int? = null
 
+    var bottomBarWidth: Int? = null
     var accentColor: Int? = null
+
     var backColor: Int? = null
     var iconColor: Int? = null
     var iconSelectedColor: Int? = null
     var textColor: Int? = null
-
     var selectedTabItem: FluidBottomNavigationItem? = null
+
     @VisibleForTesting var isVisible = true
+    private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
+    private var backgroundView: View? = null
+    private val views: MutableList<View> = ArrayList()
 
     private fun init(attrs: AttributeSet?) {
         getAttributesOrDefaultValues(attrs)
@@ -70,12 +73,16 @@ class FluidBottomNavigation : FrameLayout {
         layoutParams =
                 ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        height ?: 0)
+                        bottomBarHeight ?: 0)
     }
 
     fun selectTab(position: Int) {
-        animateDeselectItemView(selectedTabPosition)
-        animateSelectItemView(position)
+        if (position == selectedTabPosition) return
+
+        if (IS_UNIT_TEST.not()) {
+            animateDeselectItemView(views[selectedTabPosition])
+            animateSelectItemView(views[position])
+        }
 
         this.selectedTabPosition = position
         this.selectedTabItem = items[position]
@@ -100,7 +107,7 @@ class FluidBottomNavigation : FrameLayout {
     private fun drawLayout() {
         if (IS_UNIT_TEST) return
 
-        height = resources.getDimension(R.dimen.fluidBottomNavigationHeight).toInt()
+        bottomBarHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeightWithOpacity).toInt()
         backgroundView = View(context)
 
         removeAllViews()
@@ -109,7 +116,7 @@ class FluidBottomNavigation : FrameLayout {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    calculateHeight(height ?: 0)
+                    calculateHeight(bottomBarHeight ?: 0)
             ).let {
                 addView(backgroundView, it)
             }
@@ -121,14 +128,13 @@ class FluidBottomNavigation : FrameLayout {
                 .apply {
                     orientation = LinearLayout.HORIZONTAL
                     gravity = Gravity.CENTER
-                    setBackgroundColor(ContextCompat.getColor(context, backColor ?: -1))
                 }
                 .let {
                     Pair(
                             it,
                             FrameLayout.LayoutParams(
                                     ViewGroup.LayoutParams.MATCH_PARENT,
-                                    height ?: 0,
+                                    bottomBarHeight ?: 0,
                                     Gravity.BOTTOM))
                 }
                 .let { (linearLayoutContainer, layoutParams) ->
@@ -150,12 +156,12 @@ class FluidBottomNavigation : FrameLayout {
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val itemViewHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeight)
+        val itemViewHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeightWithOpacity)
         val itemViewWidth = ((bottomBarWidth ?: 0) / items.size)
 
         for (itemPosition in items.indices) {
             inflater
-                    .inflate(R.layout.fluid_bottom_navigation_item, this, false)
+                    .inflate(R.layout.item, this, false)
                     .let {
                         views.add(it)
                         linearLayout
@@ -176,21 +182,19 @@ class FluidBottomNavigation : FrameLayout {
 
         with(view) {
             if (items.size > 3) {
-                container.setPadding(0, container.paddingTop, 0, container.paddingBottom)
+                container.setPadding(0, 0, 0, container.paddingBottom)
             }
 
-            with(itemIcon) {
+            with(icon) {
                 setImageDrawable(item.drawable)
-                if (selectedTabPosition == position) {
-                    isSelected = true
-                    animateSelectItemView(position)
-                } else {
-                    isSelected = false
-                }
+                if (selectedTabPosition == position)
+                    animateSelectItemView(view)
+                else
+                    setTintColor(getColor(iconColor))
             }
 
-            with(itemTitle) {
-//            if (titleTypeface != null) {
+            with(title) {
+                //            if (titleTypeface != null) {
 //                title.typeface = titleTypeface
 //            } TODO
                 text = item.title
@@ -199,7 +203,16 @@ class FluidBottomNavigation : FrameLayout {
                         resources.getDimension(R.dimen.fluidBottomNavigationTextSize))
             }
 
-            setOnClickListener { selectTab(position) }
+            with(topAnimatedImageView) {
+                AnimatedVectorDrawableCompat
+                        .create(context, R.drawable.top)
+                        .let {
+                            it?.stop()
+                            setImageDrawable(it)
+                        }
+            }
+
+            backgroundContainer.setOnClickListener { selectTab(position) }
         }
     }
 
@@ -208,7 +221,7 @@ class FluidBottomNavigation : FrameLayout {
     private fun getAttributesOrDefaultValues(attrs: AttributeSet?) {
         if (IS_UNIT_TEST) return
 
-        height = resources.getDimension(R.dimen.fluidBottomNavigationHeight).toInt()
+        bottomBarHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeightWithOpacity).toInt()
         accentColor = ContextCompat.getColor(context, R.color.accentColor)
         backColor = ContextCompat.getColor(context, R.color.backColor)
         textColor = ContextCompat.getColor(context, R.color.textColor)

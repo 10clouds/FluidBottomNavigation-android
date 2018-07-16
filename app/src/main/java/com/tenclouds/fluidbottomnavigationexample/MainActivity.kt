@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var state: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,4 +38,5 @@ class MainActivity : AppCompatActivity() {
                                 getString(R.string.profile),
                                 ContextCompat.getDrawable(this, R.drawable.ic_profile)))
     }
+
 }
