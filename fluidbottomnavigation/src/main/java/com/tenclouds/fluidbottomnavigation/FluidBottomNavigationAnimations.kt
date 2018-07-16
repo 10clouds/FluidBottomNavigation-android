@@ -17,3 +17,6 @@ internal fun FluidBottomNavigation.animateHide() =
                 .setInterpolator(LinearOutSlowInInterpolator())
                 .setDuration(HIDE_ANIMATION_DURATION.toLong())
                 .start()
+
+internal fun FluidBottomNavigation.animateSelectItemView(position: Int) {}
+internal fun FluidBottomNavigation.animateDeselectItemView(position: Int) {}

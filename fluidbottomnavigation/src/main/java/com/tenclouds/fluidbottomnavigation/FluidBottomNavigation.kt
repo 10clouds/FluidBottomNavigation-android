@@ -1,7 +1,5 @@
 package com.tenclouds.fluidbottomnavigation
 
-import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -9,14 +7,16 @@ import android.os.Parcelable
 import android.support.annotation.VisibleForTesting
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
+import kotlinx.android.synthetic.main.fluid_bottom_navigation_item.view.*
 
 class FluidBottomNavigation : FrameLayout {
 
@@ -53,6 +53,8 @@ class FluidBottomNavigation : FrameLayout {
     private var backgroundView: View? = null
     private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
     var height: Int? = null
+    var bottomBarWidth: Int? = null
+
     var accentColor: Int? = null
     var backColor: Int? = null
     var iconColor: Int? = null
@@ -72,8 +74,12 @@ class FluidBottomNavigation : FrameLayout {
     }
 
     fun selectTab(position: Int) {
+        animateDeselectItemView(selectedTabPosition)
+        animateSelectItemView(position)
+
         this.selectedTabPosition = position
         this.selectedTabItem = items[position]
+
         onTabSelectedListener?.onTabSelected(position)
     }
 
@@ -97,7 +103,8 @@ class FluidBottomNavigation : FrameLayout {
         height = resources.getDimension(R.dimen.fluidBottomNavigationHeight).toInt()
         backgroundView = View(context)
 
-        clearViews()
+        removeAllViews()
+        views.clear()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             FrameLayout.LayoutParams(
@@ -107,6 +114,8 @@ class FluidBottomNavigation : FrameLayout {
                 addView(backgroundView, it)
             }
         }
+
+        post { requestLayout() }
 
         LinearLayout(context)
                 .apply {
@@ -124,70 +133,74 @@ class FluidBottomNavigation : FrameLayout {
                 }
                 .let { (linearLayoutContainer, layoutParams) ->
                     addView(linearLayoutContainer, layoutParams)
-                }
-
-        post { requestLayout() }
-    }
-
-    private fun createItems(linearLayout: LinearLayout) {
-
-    }
-
-    @SuppressLint("NewApi", "ResourceType")
-    @Suppress("NAME_SHADOWING")
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun calculateHeight(layoutHeight: Int): Int {
-        var layoutHeight = layoutHeight
-        var navigationBarHeight = 0
-
-        resources.getIdentifier("navigation_bar_height", "dimen", "android")
-                .let {
-                    if (it > 0)
-                        navigationBarHeight = resources.getDimensionPixelSize(it)
-                }
-
-        intArrayOf(android.R.attr.windowTranslucentNavigation)
-                .let {
-                    with(context.theme
-                            .obtainStyledAttributes(it)) {
-                        val translucentNavigation = getBoolean(0, true)
-                        if (hasImmersive() && !translucentNavigation) {
-                            layoutHeight += navigationBarHeight
+                    viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            viewTreeObserver.removeOnGlobalLayoutListenerCompat(this)
+                            bottomBarWidth = width
+                            drawItemsViews(linearLayoutContainer)
                         }
-                        recycle()
-                    }
+                    })
                 }
-
-        return layoutHeight
     }
 
-    @SuppressLint("NewApi")
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun hasImmersive(): Boolean {
-
-        val displayMetrics = DisplayMetrics()
-        val realDisplayMetrics = DisplayMetrics()
-        with((context.getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-                .defaultDisplay) {
-            getMetrics(displayMetrics)
-            getRealMetrics(realDisplayMetrics)
+    private fun drawItemsViews(linearLayout: LinearLayout) {
+        if (bottomBarWidth == 0 || items.isEmpty()) {
+            return
         }
 
-        val displayHeight = displayMetrics.heightPixels
-        val displayWidth = displayMetrics.widthPixels
-        val realHeight = realDisplayMetrics.heightPixels
-        val realWidth = realDisplayMetrics.widthPixels
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        return realWidth > displayWidth || realHeight > displayHeight
+        val itemViewHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeight)
+        val itemViewWidth = ((bottomBarWidth ?: 0) / items.size)
+
+        for (itemPosition in items.indices) {
+            inflater
+                    .inflate(R.layout.fluid_bottom_navigation_item, this, false)
+                    .let {
+                        views.add(it)
+                        linearLayout
+                                .addView(it,
+                                        FrameLayout.LayoutParams(
+                                                itemViewWidth,
+                                                itemViewHeight.toInt()))
+                    }
+            drawItemView(itemPosition)
+        }
     }
 
-    private fun clearViews() {
-        removeAllViews()
-        views.clear()
-    }
+    private fun drawItemView(position: Int) {
+        if (IS_UNIT_TEST) return
 
-    fun redraw() {
-        drawLayout()
+        val view = views[position]
+        val item = items[position]
+
+        with(view) {
+            if (items.size > 3) {
+                container.setPadding(0, container.paddingTop, 0, container.paddingBottom)
+            }
+
+            with(itemIcon) {
+                setImageDrawable(item.drawable)
+                if (selectedTabPosition == position) {
+                    isSelected = true
+                    animateSelectItemView(position)
+                } else {
+                    isSelected = false
+                }
+            }
+
+            with(itemTitle) {
+//            if (titleTypeface != null) {
+//                title.typeface = titleTypeface
+//            } TODO
+                text = item.title
+                setTextSize(
+                        TypedValue.COMPLEX_UNIT_PX,
+                        resources.getDimension(R.dimen.fluidBottomNavigationTextSize))
+            }
+
+            setOnClickListener { selectTab(position) }
+        }
     }
 
     fun getTabsSize() = items.size
