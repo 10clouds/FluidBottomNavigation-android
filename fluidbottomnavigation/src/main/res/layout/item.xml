@@ -13,6 +13,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            android:scaleY="0.85"
+            android:scaleX="0.85"
             android:translationY="100dp"
             />
 
@@ -57,7 +59,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:lines="1"
             android:textColor="@color/textColor"
             app:layout_constraintTop_toBottomOf="@id/icon"
