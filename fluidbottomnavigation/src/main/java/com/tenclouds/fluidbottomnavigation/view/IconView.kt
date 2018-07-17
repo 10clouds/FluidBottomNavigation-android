@@ -1,14 +1,12 @@
 package com.tenclouds.fluidbottomnavigation.view
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
-import com.tenclouds.fluidbottomnavigation.extension.interpolators
-import com.tenclouds.fluidbottomnavigation.extension.scaleAnimator
-import com.tenclouds.fluidbottomnavigation.extension.tintAnimator
-import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
+import com.tenclouds.fluidbottomnavigation.extension.*
 
 class IconView @JvmOverloads constructor(context: Context,
                                          attrs: AttributeSet? = null,
@@ -24,21 +22,37 @@ class IconView @JvmOverloads constructor(context: Context,
     var deselectColor = 0
 
     override val selectAnimator by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                    selectScaleAnimator,
-                    selectMoveAnimator,
-                    selectTintAnimator)
-        }
+        AnimatorSet()
+                .apply {
+                    playTogether(
+                            selectScaleAnimator,
+                            selectMoveAnimator,
+                            selectTintAnimator)
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(animation: Animator?) = Unit
+                        override fun onAnimationEnd(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator?) = cancelDeselectAnimationAndResetState()
+                    })
+                }
     }
 
     override val deselectAnimator by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                    deselectScaleAnimator,
-                    deselectMoveAnimator,
-                    deselectTintAnimator)
-        }
+        AnimatorSet()
+                .apply {
+                    playTogether(
+                            deselectScaleAnimator,
+                            deselectMoveAnimator,
+                            deselectTintAnimator)
+                }
+    }
+
+    override fun cancelDeselectAnimationAndResetState() {
+        deselectAnimator.end()
+        scaleX = 0.9f
+        scaleY = 0.9f
+        translationY = 0f
+        setTintColor(selectColor)
     }
 
     private val selectScaleAnimator =
@@ -67,15 +81,15 @@ class IconView @JvmOverloads constructor(context: Context,
                         startDelay = 11 * KEY_FRAME_IN_MS
                     }
 
-    private val selectTintAnimator
-        get() =
-            AnimatorSet()
-                    .apply {
-                        play(tintAnimator(
-                                deselectColor,
-                                selectColor,
-                                3 * KEY_FRAME_IN_MS))
-                    }
+    private val selectTintAnimator by lazy {
+        AnimatorSet()
+                .apply {
+                    play(tintAnimator(
+                            deselectColor,
+                            selectColor,
+                            3 * KEY_FRAME_IN_MS))
+                }
+    }
 
     private val deselectScaleAnimator =
             AnimatorSet()
@@ -103,14 +117,14 @@ class IconView @JvmOverloads constructor(context: Context,
                         startDelay = 6 * KEY_FRAME_IN_MS
                     }
 
-    private val deselectTintAnimator
-        get() =
-            AnimatorSet()
-                    .apply {
-                        play(tintAnimator(
-                                selectColor,
-                                deselectColor,
-                                3 * KEY_FRAME_IN_MS))
-                        startDelay = 19 * KEY_FRAME_IN_MS
-                    }
+    private val deselectTintAnimator by lazy {
+        AnimatorSet()
+                .apply {
+                    play(tintAnimator(
+                            selectColor,
+                            deselectColor,
+                            3 * KEY_FRAME_IN_MS))
+                    startDelay = 19 * KEY_FRAME_IN_MS
+                }
+    }
 }

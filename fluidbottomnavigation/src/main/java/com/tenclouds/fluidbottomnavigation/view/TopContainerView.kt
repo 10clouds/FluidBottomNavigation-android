@@ -1,5 +1,6 @@
 package com.tenclouds.fluidbottomnavigation.view
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -27,6 +28,12 @@ class TopContainerView @JvmOverloads constructor(context: Context,
                     playTogether(
                             selectScaleAnimator,
                             selectMoveAnimator)
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(animation: Animator?) = Unit
+                        override fun onAnimationEnd(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator?) = cancelDeselectAnimationAndResetState()
+                    })
                 }
     }
 
@@ -37,6 +44,13 @@ class TopContainerView @JvmOverloads constructor(context: Context,
                             deselectScaleAnimator,
                             deselectMoveAnimator)
                 }
+    }
+
+    override fun cancelDeselectAnimationAndResetState() {
+        deselectAnimator.cancel()
+        scaleX = 1.0f
+        scaleY = 1.0f
+        translationY = 100f
     }
 
     private val selectScaleAnimator =

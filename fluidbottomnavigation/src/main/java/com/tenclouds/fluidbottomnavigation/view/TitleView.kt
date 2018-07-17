@@ -1,5 +1,6 @@
 package com.tenclouds.fluidbottomnavigation.view
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.content.Context
 import android.support.v4.view.animation.LinearOutSlowInInterpolator
@@ -16,19 +17,35 @@ class TitleView @JvmOverloads constructor(context: Context,
     : AppCompatTextView(context, attrs, defStyleAttr), AnimatedView {
 
     override val selectAnimator by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                    selectMoveAnimator,
-                    selectAlphaAnimator)
-        }
+        AnimatorSet()
+                .apply {
+                    playTogether(
+                            selectMoveAnimator,
+                            selectAlphaAnimator)
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(animation: Animator?) = Unit
+                        override fun onAnimationEnd(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator?) = cancelDeselectAnimationAndResetState()
+                    })
+                }
     }
 
     override val deselectAnimator by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                    deselectMoveAnimator,
-                    deselectAlphaAnimator)
-        }
+        AnimatorSet()
+                .apply {
+                    playTogether(
+                            deselectMoveAnimator,
+                            deselectAlphaAnimator)
+                }
+    }
+
+    override fun cancelDeselectAnimationAndResetState() {
+        deselectAnimator.cancel()
+        scaleX = 0.9f
+        scaleY = 0.9f
+        translationY = 0f
+        alpha = 0f
     }
 
     private val selectMoveAnimator =
