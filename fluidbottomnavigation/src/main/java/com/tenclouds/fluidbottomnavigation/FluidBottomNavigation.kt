@@ -61,7 +61,7 @@ class FluidBottomNavigation : FrameLayout {
     private var bottomBarHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeightWithOpacity).toInt()
     private var bottomBarWidth = 0
 
-    @VisibleForTesting var isVisible = true
+    @VisibleForTesting internal var isVisible = true
 
     private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
         set(value) {
