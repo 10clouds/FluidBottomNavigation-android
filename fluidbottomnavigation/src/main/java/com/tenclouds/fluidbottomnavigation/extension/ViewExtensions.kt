@@ -8,7 +8,6 @@ import android.support.v4.widget.ImageViewCompat
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.ImageView
 import com.tenclouds.fluidbottomnavigation.FluidBottomNavigation
@@ -29,15 +28,6 @@ internal fun ImageView.setTintColor(color: Int) =
         ImageViewCompat.setImageTintList(
                 this,
                 ColorStateList.valueOf(color))
-
-@Suppress("DEPRECATION")
-internal fun ViewTreeObserver.removeOnGlobalLayoutListenerCompat(listener: ViewTreeObserver.OnGlobalLayoutListener) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-        this.removeOnGlobalLayoutListener(listener)
-    } else {
-        this.removeGlobalOnLayoutListener(listener)
-    }
-}
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 internal fun FluidBottomNavigation.calculateHeight(layoutHeight: Int): Int {

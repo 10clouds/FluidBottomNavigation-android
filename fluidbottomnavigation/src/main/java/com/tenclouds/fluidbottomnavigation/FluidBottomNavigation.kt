@@ -14,11 +14,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.tenclouds.fluidbottomnavigation.extension.calculateHeight
-import com.tenclouds.fluidbottomnavigation.extension.removeOnGlobalLayoutListenerCompat
 import com.tenclouds.fluidbottomnavigation.extension.setTintColor
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
 import kotlinx.android.synthetic.main.item.view.*
@@ -40,9 +38,9 @@ class FluidBottomNavigation : FrameLayout {
     var items: List<FluidBottomNavigationItem> = listOf()
         set(value) {
             if (value.size < 3)
-                IllegalStateException(resources.getString(R.string.exception_too_little_items))
+                IllegalStateException(resources.getString(R.string.exception_not_enough_items))
             if (value.size > 5)
-                IllegalStateException(resources.getString(R.string.exception_too_much_items))
+                IllegalStateException(resources.getString(R.string.exception_too_many_items))
 
             field = value
             drawLayout()
@@ -139,13 +137,10 @@ class FluidBottomNavigation : FrameLayout {
                                     bottomBarHeight,
                                     Gravity.BOTTOM)
                     addView(linearLayoutContainer, layoutParams)
-                    viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-                        override fun onGlobalLayout() {
-                            viewTreeObserver.removeOnGlobalLayoutListenerCompat(this)
-                            bottomBarWidth = width
-                            drawItemsViews(linearLayoutContainer)
-                        }
-                    })
+                    post {
+                        bottomBarWidth = width
+                        drawItemsViews(linearLayoutContainer)
+                    }
                 }
     }
 
