@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
 import com.tenclouds.fluidbottomnavigation.extension.*
 
-class IconView @JvmOverloads constructor(context: Context,
+internal class IconView @JvmOverloads constructor(context: Context,
                                          attrs: AttributeSet? = null,
                                          defStyleAttr: Int = 0)
     : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {

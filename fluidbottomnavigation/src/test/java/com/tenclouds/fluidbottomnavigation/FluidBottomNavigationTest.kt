@@ -3,31 +3,35 @@ package com.tenclouds.fluidbottomnavigation
 import android.app.Activity
 import com.nhaarman.mockitokotlin2.verify
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
+import com.tenclouds.fluidbottomnavigation.util.ShadowResourcesCompat
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
+import org.mockito.Mockito.mock
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(constants = BuildConfig::class)
+@Config(
+        constants = BuildConfig::class,
+        packageName = "com.tenclouds.fluidbottomnavigation",
+        sdk = [21],
+        shadows = [(ShadowResourcesCompat::class)])
 class FluidBottomNavigationTest {
 
-    lateinit var fluidBottomNavigation: FluidBottomNavigation
+    private lateinit var fluidBottomNavigation: FluidBottomNavigation
     private val controller = Robolectric.buildActivity(Activity::class.java).create().start()
     private val fluidBottomNavigationItems =
             listOf(
                     FluidBottomNavigationItem("Tab1"),
                     FluidBottomNavigationItem("Tab2"),
                     FluidBottomNavigationItem("Tab3"))
-    private val onTabSelectedListener = Mockito.mock(OnTabSelectedListener::class.java)
+    private val onTabSelectedListener = mock(OnTabSelectedListener::class.java)
 
     @Before
     fun setup() {
-        FluidBottomNavigation.IS_UNIT_TEST = true
         fluidBottomNavigation =
                 FluidBottomNavigation(controller.get())
                         .apply {

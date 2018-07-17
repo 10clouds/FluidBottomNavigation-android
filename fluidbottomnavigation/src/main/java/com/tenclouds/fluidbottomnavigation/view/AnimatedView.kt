@@ -4,7 +4,7 @@ import android.animation.Animator
 import android.content.Context
 import com.tenclouds.fluidbottomnavigation.R
 
-interface AnimatedView {
+internal interface AnimatedView {
 
     val selectAnimator: Animator
     val deselectAnimator: Animator

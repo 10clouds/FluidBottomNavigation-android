@@ -10,7 +10,7 @@ import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.scaleYAnimator
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 
-class RectangleView @JvmOverloads constructor(context: Context,
+internal class RectangleView @JvmOverloads constructor(context: Context,
                                               attrs: AttributeSet? = null,
                                               defStyleAttr: Int = 0)
     : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {

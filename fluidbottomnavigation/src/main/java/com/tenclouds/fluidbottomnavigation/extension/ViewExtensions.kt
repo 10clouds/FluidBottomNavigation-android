@@ -25,16 +25,13 @@ internal fun View.gone() {
     this.visibility = View.GONE
 }
 
-internal fun View?.getColor(colorResource: Int?) =
-        colorResource ?: 0
-
 internal fun ImageView.setTintColor(color: Int) =
         ImageViewCompat.setImageTintList(
                 this,
                 ColorStateList.valueOf(color))
 
 @Suppress("DEPRECATION")
-fun ViewTreeObserver.removeOnGlobalLayoutListenerCompat(listener: ViewTreeObserver.OnGlobalLayoutListener) {
+internal fun ViewTreeObserver.removeOnGlobalLayoutListenerCompat(listener: ViewTreeObserver.OnGlobalLayoutListener) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         this.removeOnGlobalLayoutListener(listener)
     } else {
@@ -62,7 +59,7 @@ internal fun FluidBottomNavigation.calculateHeight(layoutHeight: Int): Int {
                 with(context.theme
                         .obtainStyledAttributes(it)) {
                     val translucentNavigation = getBoolean(0, true)
-                    if (hasImmersive(context) && !translucentNavigation) {
+                    if (isInImmersiveMode(context) && !translucentNavigation) {
                         navigationLayoutHeight += navigationBarHeight
                     }
                     recycle()
@@ -72,17 +69,13 @@ internal fun FluidBottomNavigation.calculateHeight(layoutHeight: Int): Int {
     return navigationLayoutHeight
 }
 
-private fun hasImmersive(context: Context) =
-        with(
-                (context
-                        .getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-                        .defaultDisplay) {
-            Pair(getMetrics(), getRealMetrics())
+private fun isInImmersiveMode(context: Context) =
+        with((context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay) {
+            val realMetrics = getRealMetrics()
+            val metrics = getMetrics()
+            realMetrics.widthPixels > metrics.widthPixels
+                    || realMetrics.heightPixels > metrics.heightPixels
         }
-                .let { (displayMetrics, realDisplayMetrics) ->
-                    realDisplayMetrics.widthPixels > displayMetrics.widthPixels
-                            || realDisplayMetrics.heightPixels > displayMetrics.heightPixels
-                }
 
 private fun Display.getMetrics() =
         DisplayMetrics().also { this.getMetrics(it) }
@@ -102,18 +95,20 @@ private fun Display.getRealMetrics() =
                                             heightPixels = getRawHeight.invoke(this) as Int
                                         }
                             } catch (e: Exception) {
-                                DisplayMetrics().apply {
+                                DisplayMetrics()
+                                        .apply {
+                                            @Suppress("DEPRECATION")
+                                            widthPixels = this@getRealMetrics.width
+                                            @Suppress("DEPRECATION")
+                                            heightPixels = this@getRealMetrics.height
+                                        }
+                            }
+                        else -> DisplayMetrics()
+                                .apply {
                                     @Suppress("DEPRECATION")
                                     widthPixels = this@getRealMetrics.width
                                     @Suppress("DEPRECATION")
                                     heightPixels = this@getRealMetrics.height
                                 }
-                            }
-                        else -> DisplayMetrics().apply {
-                            @Suppress("DEPRECATION")
-                            widthPixels = this@getRealMetrics.width
-                            @Suppress("DEPRECATION")
-                            heightPixels = this@getRealMetrics.height
-                        }
                     }
                 }

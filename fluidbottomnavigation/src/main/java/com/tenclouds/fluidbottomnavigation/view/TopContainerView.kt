@@ -12,9 +12,9 @@ import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.scaleAnimator
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 
-class TopContainerView @JvmOverloads constructor(context: Context,
-                                                 attrs: AttributeSet? = null,
-                                                 defStyleAttr: Int = 0)
+internal class TopContainerView @JvmOverloads constructor(context: Context,
+                                                          attrs: AttributeSet? = null,
+                                                          defStyleAttr: Int = 0)
     : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {
 
     init {

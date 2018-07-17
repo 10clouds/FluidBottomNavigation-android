@@ -11,7 +11,7 @@ import com.tenclouds.fluidbottomnavigation.extension.alphaAnimator
 import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 
-class TitleView @JvmOverloads constructor(context: Context,
+internal class TitleView @JvmOverloads constructor(context: Context,
                                           attrs: AttributeSet? = null,
                                           defStyleAttr: Int = 0)
     : AppCompatTextView(context, attrs, defStyleAttr), AnimatedView {

@@ -22,6 +22,12 @@ android {
             minifyEnabled false
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
