@@ -9,8 +9,8 @@ import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
 import com.tenclouds.fluidbottomnavigation.extension.*
 
 internal class IconView @JvmOverloads constructor(context: Context,
-                                         attrs: AttributeSet? = null,
-                                         defStyleAttr: Int = 0)
+                                                  attrs: AttributeSet? = null,
+                                                  defStyleAttr: Int = 0)
     : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {
 
     init {
@@ -32,7 +32,10 @@ internal class IconView @JvmOverloads constructor(context: Context,
                         override fun onAnimationRepeat(animation: Animator?) = Unit
                         override fun onAnimationEnd(animation: Animator?) = Unit
                         override fun onAnimationCancel(animation: Animator?) = Unit
-                        override fun onAnimationStart(animation: Animator?) = cancelDeselectAnimationAndResetState()
+                        override fun onAnimationStart(animation: Animator?) {
+                            deselectTintAnimator.cancel()
+                            setTintColor(selectColor)
+                        }
                     })
                 }
     }
@@ -45,14 +48,6 @@ internal class IconView @JvmOverloads constructor(context: Context,
                             deselectMoveAnimator,
                             deselectTintAnimator)
                 }
-    }
-
-    override fun cancelDeselectAnimationAndResetState() {
-        deselectAnimator.end()
-        scaleX = 0.9f
-        scaleY = 0.9f
-        translationY = 0f
-        setTintColor(selectColor)
     }
 
     private val selectScaleAnimator =

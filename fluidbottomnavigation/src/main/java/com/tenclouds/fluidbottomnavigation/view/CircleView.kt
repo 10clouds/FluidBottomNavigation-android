@@ -1,6 +1,5 @@
 package com.tenclouds.fluidbottomnavigation.view
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView
@@ -26,12 +25,6 @@ internal class CircleView @JvmOverloads constructor(context: Context,
                     playTogether(
                             selectScaleAnimator,
                             selectMoveAnimator)
-                    addListener(object : Animator.AnimatorListener {
-                        override fun onAnimationRepeat(animation: Animator?) = Unit
-                        override fun onAnimationEnd(animation: Animator?) = Unit
-                        override fun onAnimationCancel(animation: Animator?) = Unit
-                        override fun onAnimationStart(animation: Animator?) = cancelDeselectAnimationAndResetState()
-                    })
                 }
     }
 
@@ -42,13 +35,6 @@ internal class CircleView @JvmOverloads constructor(context: Context,
                             deselectScaleAnimator,
                             deselectMoveAnimator)
                 }
-    }
-
-    override fun cancelDeselectAnimationAndResetState() {
-        deselectAnimator.cancel()
-        scaleY = 0f
-        scaleX = 0f
-        translationY = 0f
     }
 
     private val selectScaleAnimator =
