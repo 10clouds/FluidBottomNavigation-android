@@ -12,8 +12,8 @@ import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 
 internal class TitleView @JvmOverloads constructor(context: Context,
-                                          attrs: AttributeSet? = null,
-                                          defStyleAttr: Int = 0)
+                                                   attrs: AttributeSet? = null,
+                                                   defStyleAttr: Int = 0)
     : AppCompatTextView(context, attrs, defStyleAttr), AnimatedView {
 
     override val selectAnimator by lazy {
@@ -54,12 +54,12 @@ internal class TitleView @JvmOverloads constructor(context: Context,
                         playSequentially(
                                 translationYAnimator(
                                         0f,
-                                        getItemYTransitionYValue(context) * 11 / 10,
+                                        getItemOvershootTransitionYValue(context),
                                         7 * KEY_FRAME_IN_MS,
                                         interpolators[0]),
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context) * 11 / 10,
-                                        getItemYTransitionYValue(context),
+                                        getItemOvershootTransitionYValue(context),
+                                        getItemTransitionYValue(context),
                                         3 * KEY_FRAME_IN_MS,
                                         interpolators[4]))
                         startDelay = 11 * KEY_FRAME_IN_MS
@@ -78,12 +78,12 @@ internal class TitleView @JvmOverloads constructor(context: Context,
                     .apply {
                         playSequentially(
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context),
-                                        getItemYTransitionYValue(context) * 11 / 10,
+                                        getItemTransitionYValue(context),
+                                        getItemOvershootTransitionYValue(context),
                                         3 * KEY_FRAME_IN_MS,
                                         interpolators[4]),
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context) * 11 / 10,
+                                        getItemOvershootTransitionYValue(context),
                                         0f,
                                         11 * KEY_FRAME_IN_MS,
                                         interpolators[0]))

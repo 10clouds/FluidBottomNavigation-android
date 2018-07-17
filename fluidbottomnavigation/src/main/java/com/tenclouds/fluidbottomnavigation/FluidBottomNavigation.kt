@@ -189,7 +189,7 @@ class FluidBottomNavigation : FrameLayout {
 
                 setImageDrawable(item.drawable)
                 if (selectedTabPosition == position)
-                    animateSelectItemView()
+                    views[position].animateSelectItemView()
                 else
                     setTintColor(deselectColor)
             }

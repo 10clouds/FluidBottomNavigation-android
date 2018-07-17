@@ -11,6 +11,9 @@ internal interface AnimatedView {
 
     fun cancelDeselectAnimationAndResetState()
 
-    fun getItemYTransitionYValue(context: Context) =
+    fun getItemTransitionYValue(context: Context) =
             -(context.resources?.getDimension(R.dimen.fluidBottomNavigationItemTranslationY) ?: 0f)
+
+    fun getItemOvershootTransitionYValue(context: Context) =
+            getItemTransitionYValue(context) * 11 / 10
 }

@@ -68,7 +68,7 @@ internal class TopContainerView @JvmOverloads constructor(context: Context,
                     .apply {
                         play(translationYAnimator(
                                 100f,
-                                -getItemYTransitionYValue(context) * 1 / 6,
+                                getItemTransitionYValue(context),
                                 7 * KEY_FRAME_IN_MS,
                                 interpolators[0]))
                         startDelay = 12 * KEY_FRAME_IN_MS
@@ -87,10 +87,14 @@ internal class TopContainerView @JvmOverloads constructor(context: Context,
             AnimatorSet()
                     .apply {
                         play(translationYAnimator(
-                                -getItemYTransitionYValue(context) * 1 / 6,
+                                getItemTransitionYValue(context),
                                 100f,
                                 10 * KEY_FRAME_IN_MS,
                                 interpolators[0]))
                         startDelay = 8 * KEY_FRAME_IN_MS
                     }
+
+    override fun getItemTransitionYValue(context: Context): Float {
+        return -super.getItemTransitionYValue(context) * 1 / 6
+    }
 }

@@ -64,7 +64,7 @@ internal class RectangleView @JvmOverloads constructor(context: Context,
                         play(
                                 translationYAnimator(
                                         0f,
-                                        getItemYTransitionYValue(context),
+                                        getItemTransitionYValue(context),
                                         5 * KEY_FRAME_IN_MS,
                                         interpolators[1]))
                         startDelay = 14 * KEY_FRAME_IN_MS
@@ -84,10 +84,13 @@ internal class RectangleView @JvmOverloads constructor(context: Context,
                     .apply {
                         play(
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context) * 3 / 5,
+                                        getItemDeselectTransitionYValue(context),
                                         0f,
                                         2 * KEY_FRAME_IN_MS,
                                         interpolators[1]))
                         startDelay = 4 * KEY_FRAME_IN_MS
                     }
+
+    private fun getItemDeselectTransitionYValue(context: Context) =
+            getItemTransitionYValue(context) * 3 / 5
 }

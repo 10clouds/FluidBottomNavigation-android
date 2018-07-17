@@ -70,12 +70,12 @@ internal class IconView @JvmOverloads constructor(context: Context,
                         playSequentially(
                                 translationYAnimator(
                                         0f,
-                                        getItemYTransitionYValue(context) * 11 / 10,
+                                        getItemOvershootTransitionYValue(context),
                                         7 * KEY_FRAME_IN_MS,
                                         interpolators[0]),
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context) * 11 / 10,
-                                        getItemYTransitionYValue(context),
+                                        getItemOvershootTransitionYValue(context),
+                                        getItemTransitionYValue(context),
                                         3 * KEY_FRAME_IN_MS,
                                         interpolators[4]))
                         startDelay = 11 * KEY_FRAME_IN_MS
@@ -105,12 +105,12 @@ internal class IconView @JvmOverloads constructor(context: Context,
                     .apply {
                         playSequentially(
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context),
-                                        getItemYTransitionYValue(context) * 11 / 10,
+                                        getItemTransitionYValue(context),
+                                        getItemOvershootTransitionYValue(context),
                                         3 * KEY_FRAME_IN_MS,
                                         interpolators[4]),
                                 translationYAnimator(
-                                        getItemYTransitionYValue(context) * 11 / 10,
+                                        getItemOvershootTransitionYValue(context),
                                         0f,
                                         7 * KEY_FRAME_IN_MS,
                                         interpolators[0]))
