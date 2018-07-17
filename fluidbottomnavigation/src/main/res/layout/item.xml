@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fluidBottomNavigationHeightWithOpacity"
+        android:background="@android:color/transparent">
+
+    <com.tenclouds.fluidbottomnavigation.view.TopContainerView
+            android:id="@+id/topContainer"
+            android:layout_width="@dimen/fluidBottomNavigationTopContainerWidth"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/fluidBottomNavigationTopContainerMarginLeftRight"
+            android:layout_marginEnd="@dimen/fluidBottomNavigationTopContainerMarginLeftRight"
+            />
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/backgroundContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fluidBottomNavigationHeight"
+            android:background="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/fluidBottomNavigationBackgroundMarginTop"
+            />
+
+    <com.tenclouds.fluidbottomnavigation.view.RectangleView
+            android:id="@+id/rectangle"
+            android:layout_width="@dimen/fluidBottomNavigationCircleSize"
+            android:layout_height="@dimen/fluidBottomNavigationCircleSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/rectangle"
+            android:layout_marginTop="@dimen/fluidBottomNavigationRectangleMarginTop"
+            />
+
+    <com.tenclouds.fluidbottomnavigation.view.CircleView
+            android:id="@+id/circle"
+            android:layout_width="@dimen/fluidBottomNavigationCircleSize"
+            android:layout_height="@dimen/fluidBottomNavigationCircleSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/circle"
+            android:layout_marginTop="@dimen/fluidBottomNavigationCircleMarginTop"
+            />
+
+    <com.tenclouds.fluidbottomnavigation.view.IconView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/fluidBottomNavigationIconSize"
+            android:layout_height="@dimen/fluidBottomNavigationIconSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/fluidBottomNavigationIconMarginTop"
+            tools:src="@android:drawable/btn_star"
+            />
+
+    <com.tenclouds.fluidbottomnavigation.view.TitleView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fluidBottomNavigationTitleMarginTop"
+            android:lines="1"
+            android:textColor="@color/textColor"
+            app:layout_constraintTop_toBottomOf="@id/icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/fluidBottomNavigationTextSize"
+            tools:text="Label One"/>
+
+</android.support.constraint.ConstraintLayout>

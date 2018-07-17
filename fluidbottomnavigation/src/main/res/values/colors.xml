@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accentColor">#303F9F</color>
+    <color name="backColor">#FFFFFF</color>
+    <color name="textColor">#303F9F</color>
+    <color name="iconColor">#3F51B5</color>
+    <color name="iconSelectedColor">#FFFFFF</color>
+</resources>
