@@ -10,8 +10,8 @@ import com.tenclouds.fluidbottomnavigation.extension.scaleAnimator
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 
 internal class CircleView @JvmOverloads constructor(context: Context,
-                                           attrs: AttributeSet? = null,
-                                           defStyleAttr: Int = 0)
+                                                    attrs: AttributeSet? = null,
+                                                    defStyleAttr: Int = 0)
     : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {
 
     init {

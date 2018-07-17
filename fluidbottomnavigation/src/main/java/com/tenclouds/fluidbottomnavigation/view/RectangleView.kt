@@ -1,5 +1,6 @@
 package com.tenclouds.fluidbottomnavigation.view
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView
@@ -24,6 +25,16 @@ internal class RectangleView @JvmOverloads constructor(context: Context,
                     playTogether(
                             selectScaleAnimator,
                             selectMoveAnimator)
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(animation: Animator?) = Unit
+                        override fun onAnimationEnd(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator?) {
+                            deselectMoveAnimator.cancel()
+                            deselectScaleAnimator.cancel()
+                            scaleY = 0f
+                        }
+                    })
                 }
     }
 
@@ -33,6 +44,14 @@ internal class RectangleView @JvmOverloads constructor(context: Context,
                     playTogether(
                             deselectScaleAnimator,
                             deselectMoveAnimator)
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(animation: Animator?) = Unit
+                        override fun onAnimationEnd(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator?) {
+                            selectAnimator.cancel()
+                        }
+                    })
                 }
     }
 
