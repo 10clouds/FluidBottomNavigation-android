@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.os.SystemClock
 import android.support.annotation.VisibleForTesting
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
@@ -20,6 +21,7 @@ import com.tenclouds.fluidbottomnavigation.extension.calculateHeight
 import com.tenclouds.fluidbottomnavigation.extension.setTintColor
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
 import kotlinx.android.synthetic.main.item.view.*
+import java.lang.Math.abs
 
 class FluidBottomNavigation : FrameLayout {
 
@@ -71,7 +73,7 @@ class FluidBottomNavigation : FrameLayout {
 
     private var backgroundView: View? = null
     private val views: MutableList<View> = ArrayList()
-
+    private var lastItemClickTimestamp = 0L
 
     private fun init(attrs: AttributeSet?) {
         getAttributesOrDefaultValues(attrs)
@@ -188,7 +190,6 @@ class FluidBottomNavigation : FrameLayout {
                 else
                     setTintColor(deselectColor)
             }
-
             with(title) {
                 typeface = textFont
                 setTextColor(this@FluidBottomNavigation.textColor)
@@ -197,11 +198,20 @@ class FluidBottomNavigation : FrameLayout {
                         TypedValue.COMPLEX_UNIT_PX,
                         resources.getDimension(R.dimen.fluidBottomNavigationTextSize))
             }
+            with(circle) {
+                setTintColor(accentColor)
+            }
+            with(rectangle) {
+                setTintColor(accentColor)
+            }
 
-            circle.setTintColor(accentColor)
-            rectangle.setTintColor(accentColor)
-
-            backgroundContainer.setOnClickListener { selectTab(position) }
+            backgroundContainer.setOnClickListener {
+                val nowTimestamp = SystemClock.uptimeMillis()
+                if (abs(lastItemClickTimestamp - nowTimestamp) > ITEMS_CLICKS_DEBOUNCE) {
+                    selectTab(position)
+                    lastItemClickTimestamp = nowTimestamp
+                }
+            }
         }
     }
 

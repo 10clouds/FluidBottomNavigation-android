@@ -29,7 +29,11 @@ internal class RectangleView @JvmOverloads constructor(context: Context,
                         override fun onAnimationRepeat(animation: Animator?) = Unit
                         override fun onAnimationEnd(animation: Animator?) = Unit
                         override fun onAnimationCancel(animation: Animator?) = Unit
-                        override fun onAnimationStart(animation: Animator?) = cancelDeselectAnimationAndResetState()
+                        override fun onAnimationStart(animation: Animator?) {
+                            deselectMoveAnimator.cancel()
+                            deselectScaleAnimator.cancel()
+                            scaleY = 0f
+                        }
                     })
                 }
     }
@@ -40,13 +44,15 @@ internal class RectangleView @JvmOverloads constructor(context: Context,
                     playTogether(
                             deselectScaleAnimator,
                             deselectMoveAnimator)
+                    addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(animation: Animator?) = Unit
+                        override fun onAnimationEnd(animation: Animator?) = Unit
+                        override fun onAnimationCancel(animation: Animator?) = Unit
+                        override fun onAnimationStart(animation: Animator?) {
+                            selectAnimator.cancel()
+                        }
+                    })
                 }
-    }
-
-    override fun cancelDeselectAnimationAndResetState() {
-        deselectAnimator.cancel()
-        scaleY = 0f
-        translationY = 0f
     }
 
     private val selectScaleAnimator =
