@@ -1,8 +1,14 @@
-# Fluid Bottom Navigation
-Build status: [![Build Status](https://app.bitrise.io/app/339f26db491c854d/status.svg?token=DM799a3_NFuYxusOX-zoKA&branch=master)](https://app.bitrise.io/app/339f26db491c854d)
+# Fluid Bottom Navigation [![Build Status](https://app.bitrise.io/app/339f26db491c854d/status.svg?token=DM799a3_NFuYxusOX-zoKA&branch=master)](https://app.bitrise.io/app/339f26db491c854d)
+
+
+## Sample
+<p align="center">
+  <img src="static/sample.gif" alt="Sample Fluid Bottom Navigation"/>
+</p>
+
 
 ## Installation
-Use the Maven repo
+Just use the Maven repository. Library is on jCenter and mavenCentral.
 
 **Gradle:**
 ```groovy
@@ -23,7 +29,7 @@ libraryDependencies += "com.tenclouds.fluidbottomnavigation" % "fluid-bottom-nav
 ```
 
 ## Usage
-Place FluidBottomNavigation in your layout:
+Place **FluidBottomNavigation** in your layout:
 ```xml
 <com.tenclouds.fluidbottomnavigation.FluidBottomNavigation
             android:id="@+id/fluidBottomNavigation"
