@@ -1,0 +1,12 @@
+def getLibraryMinorVersion = { ->
+    return System.getenv("VERSION_NAME_MINOR") ?: "0"
+}
+
+ext {
+    getLibraryVersionCode = { ->
+        return (System.getenv("BITRISE_BUILD_NUMBER") ?: "0").toInteger()
+    }
+    getLibraryVersionName = { ->
+        return getLibraryMinorVersion() + "." + getLibraryVersionCode().toString()
+    }
+}

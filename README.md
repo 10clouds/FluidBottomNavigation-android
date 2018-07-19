@@ -1,4 +1,5 @@
-# Fluid Bottom Navigation [![Build Status](https://app.bitrise.io/app/339f26db491c854d/status.svg?token=DM799a3_NFuYxusOX-zoKA&branch=master)](https://app.bitrise.io/app/339f26db491c854d)
+# Fluid Bottom Navigation  [![Build Status](https://app.bitrise.io/app/339f26db491c854d/status.svg?token=DM799a3_NFuYxusOX-zoKA&branch=master)](https://app.bitrise.io/app/339f26db491c854d)  [![Download library](https://api.bintray.com/packages/10clouds-android/fluidbottomnavigation/fluid-bottom-navigation/images/download.svg)](https://bintray.com/10clouds-android/fluidbottomnavigation/fluid-bottom-navigation)
+
 
 
 ## Sample
@@ -12,18 +13,18 @@ Just use the Maven repository. Library is on jCenter and mavenCentral.
 
 **Gradle:**
 ```groovy
-implementation 'com.tenclouds.fluidbottomnavigation:fluid-bottom-navigation:0.0.0'
+implementation 'com.tenclouds.fluidbottomnavigation:fluid-bottom-navigation:{last_release_version}'
 ```
 **SBT:**
 ```groovy
-libraryDependencies += "com.tenclouds.fluidbottomnavigation" % "fluid-bottom-navigation" % "0.0.0"
+libraryDependencies += "com.tenclouds.fluidbottomnavigation" % "fluid-bottom-navigation" % "{last_release_version}"
 ```
 **Maven:**
 ```groovy
 <dependency>
   <groupId>com.tenclouds.fluidbottomnavigation</groupId>
   <artifactId>fluid-bottom-navigation</artifactId>
-  <version>0.0.0</version>
+  <version>{last_release_version}</version>
   <type>aar</type>
 </dependency>
 ```

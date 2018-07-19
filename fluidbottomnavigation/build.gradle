@@ -2,14 +2,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply from: 'script/version.gradle'
+apply from: 'script/deploy.gradle'
+
 android {
     compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode getLibraryVersionCode()
+        versionName getLibraryVersionName()
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -28,6 +31,10 @@ android {
             includeAndroidResources = true
         }
     }
+}
+
+tasks.withType(Javadoc).all {
+    enabled = false
 }
 
 dependencies {
