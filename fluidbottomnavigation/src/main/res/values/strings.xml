@@ -1,0 +1,4 @@
+<resources>
+    <string name="exception_not_enough_items">Items list should have minimum 3 items</string>
+    <string name="exception_too_many_items">Items list should have maximum 5 items</string>
+</resources>

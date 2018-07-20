@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FluidBottomNavigation">
+        <attr name="defaultTabPosition" format="integer"/>
+        <attr name="accentColor" format="color"/>
+        <attr name="backColor" format="color"/>
+        <attr name="iconColor" format="color"/>
+        <attr name="iconSelectedColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textFont" format="string"/>
+    </declare-styleable>
+</resources>
