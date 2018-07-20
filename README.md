@@ -76,3 +76,6 @@ fluidBottomNavigation.textColor = ContextCompat.getColor(this, R.color.textColor
 fluidBottomNavigation.iconColor = ContextCompat.getColor(this, R.color.iconColor)
 fluidBottomNavigation.iconSelectedColor = ContextCompat.getColor(this, R.color.iconSelectedColor)
 ```
+
+---
+Library made by **[Jakub Jodełka](https://github.com/jakubjodelka)**
