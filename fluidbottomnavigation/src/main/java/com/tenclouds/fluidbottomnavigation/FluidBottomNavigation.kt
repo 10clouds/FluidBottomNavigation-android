@@ -21,7 +21,7 @@ import com.tenclouds.fluidbottomnavigation.extension.calculateHeight
 import com.tenclouds.fluidbottomnavigation.extension.setTintColor
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
 import kotlinx.android.synthetic.main.item.view.*
-import java.lang.Math.abs
+import kotlin.math.abs
 
 class FluidBottomNavigation : FrameLayout {
 
@@ -39,10 +39,8 @@ class FluidBottomNavigation : FrameLayout {
 
     var items: List<FluidBottomNavigationItem> = listOf()
         set(value) {
-            if (value.size < 3)
-                IllegalStateException(resources.getString(R.string.exception_not_enough_items))
-            if (value.size > 5)
-                IllegalStateException(resources.getString(R.string.exception_too_many_items))
+            check(value.size >= 3) { resources.getString(R.string.exception_not_enough_items) }
+            check(value.size <= 5) { resources.getString(R.string.exception_too_many_items) }
 
             field = value
             drawLayout()
@@ -118,7 +116,7 @@ class FluidBottomNavigation : FrameLayout {
         views.clear()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            FrameLayout.LayoutParams(
+            LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     calculateHeight(bottomBarHeight)
             ).let {
@@ -135,7 +133,7 @@ class FluidBottomNavigation : FrameLayout {
                 }
                 .let { linearLayoutContainer ->
                     val layoutParams =
-                            FrameLayout.LayoutParams(
+                            LayoutParams(
                                     ViewGroup.LayoutParams.MATCH_PARENT,
                                     bottomBarHeight,
                                     Gravity.BOTTOM)
@@ -164,7 +162,7 @@ class FluidBottomNavigation : FrameLayout {
                         views.add(it)
                         linearLayout
                                 .addView(it,
-                                        FrameLayout.LayoutParams(
+                                        LayoutParams(
                                                 itemViewWidth,
                                                 itemViewHeight.toInt()))
                     }
