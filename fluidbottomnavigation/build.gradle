@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: 'script/version.gradle'
-apply from: 'script/deploy.gradle'
 
 android {
     compileSdkVersion 29
@@ -18,7 +17,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -31,10 +30,6 @@ android {
             includeAndroidResources = true
         }
     }
-}
-
-tasks.withType(Javadoc).all {
-    enabled = false
 }
 
 dependencies {
