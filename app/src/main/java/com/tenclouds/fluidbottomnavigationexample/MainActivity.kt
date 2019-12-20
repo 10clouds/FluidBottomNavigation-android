@@ -1,8 +1,8 @@
 package com.tenclouds.fluidbottomnavigationexample
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.tenclouds.fluidbottomnavigation.FluidBottomNavigationItem
 import kotlinx.android.synthetic.main.activity_main.*
 

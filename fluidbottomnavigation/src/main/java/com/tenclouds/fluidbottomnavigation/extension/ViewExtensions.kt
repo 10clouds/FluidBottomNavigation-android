@@ -4,12 +4,12 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
-import android.support.v4.widget.ImageViewCompat
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.core.widget.ImageViewCompat
 import com.tenclouds.fluidbottomnavigation.FluidBottomNavigation
 
 internal fun View.visible() {

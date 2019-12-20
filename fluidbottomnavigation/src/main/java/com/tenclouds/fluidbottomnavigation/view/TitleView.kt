@@ -2,9 +2,9 @@ package com.tenclouds.fluidbottomnavigation.view
 
 import android.animation.AnimatorSet
 import android.content.Context
-import android.support.v4.view.animation.LinearOutSlowInInterpolator
-import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
 import com.tenclouds.fluidbottomnavigation.extension.alphaAnimator
 import com.tenclouds.fluidbottomnavigation.extension.interpolators

@@ -9,24 +9,22 @@
 
 
 ## Installation
-Just use the Maven repository. Library is on jCenter and mavenCentral.
+Use the JitPack package repository.
 
+Add `jitpack.io` repository to your root `build.gradle` file:
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Next add library to your project `build.gradle` file:
 **Gradle:**
 ```groovy
 implementation 'com.tenclouds.fluidbottomnavigation:fluid-bottom-navigation:{last_release_version}'
-```
-**SBT:**
-```groovy
-libraryDependencies += "com.tenclouds.fluidbottomnavigation" % "fluid-bottom-navigation" % "{last_release_version}"
-```
-**Maven:**
-```groovy
-<dependency>
-  <groupId>com.tenclouds.fluidbottomnavigation</groupId>
-  <artifactId>fluid-bottom-navigation</artifactId>
-  <version>{last_release_version}</version>
-  <type>aar</type>
-</dependency>
 ```
 
 ## Usage

@@ -1,8 +1,8 @@
 package com.tenclouds.fluidbottomnavigation
 
 import android.animation.AnimatorSet
-import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.view.View
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 import kotlinx.android.synthetic.main.item.view.*
 

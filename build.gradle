@@ -1,7 +1,7 @@
 buildscript {
-    ext.kotlin_version = '1.2.51'
-    ext.support_version = '27.1.1'
-    ext.constraint_version = '1.1.2'
+    ext.kotlin_version = '1.3.61'
+    ext.androidx_version = "1.1.0"
+    ext.constraint_version = '2.0.0-beta4'
 
     repositories {
         google()
@@ -9,9 +9,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.novoda:bintray-release:0.8.1'
     }
 }
 
