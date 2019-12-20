@@ -24,7 +24,7 @@ allprojects {
 Next add library to your project `build.gradle` file:
 **Gradle:**
 ```groovy
-implementation 'com.tenclouds.fluidbottomnavigation:fluid-bottom-navigation:{last_release_version}'
+implementation 'com.github.10clouds:FluidBottomNavigation-android:{last_release_version}'
 ```
 
 ## Usage
