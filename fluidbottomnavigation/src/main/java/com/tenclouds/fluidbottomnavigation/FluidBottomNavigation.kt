@@ -6,9 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.os.SystemClock
-import android.support.annotation.VisibleForTesting
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -17,6 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.tenclouds.fluidbottomnavigation.extension.calculateHeight
 import com.tenclouds.fluidbottomnavigation.extension.setTintColor
 import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
@@ -63,7 +63,8 @@ class FluidBottomNavigation : FrameLayout {
     private var bottomBarHeight = resources.getDimension(R.dimen.fluidBottomNavigationHeightWithOpacity).toInt()
     private var bottomBarWidth = 0
 
-    @VisibleForTesting internal var isVisible = true
+    @VisibleForTesting
+    internal var isVisible = true
 
     private var selectedTabPosition = DEFAULT_SELECTED_TAB_POSITION
         set(value) {

@@ -1,6 +1,6 @@
 package com.tenclouds.fluidbottomnavigation.extension
 
-import android.support.v4.view.animation.PathInterpolatorCompat
+import androidx.core.view.animation.PathInterpolatorCompat
 
 internal val interpolators = arrayOf(
         arrayOf(0.250f, 0.000f, 0.000f, 1.000f).toInterpolator(),

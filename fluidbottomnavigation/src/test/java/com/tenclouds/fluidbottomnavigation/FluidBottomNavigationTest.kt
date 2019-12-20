@@ -15,7 +15,6 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(
-        constants = BuildConfig::class,
         packageName = "com.tenclouds.fluidbottomnavigation",
         sdk = [21],
         shadows = [(ShadowResourcesCompat::class)])
